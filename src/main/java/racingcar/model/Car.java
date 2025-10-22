@@ -1,0 +1,37 @@
+package racingcar.model;
+
+public class Car implements Comparable<Car> {
+    private final static String POSITION_MARKER = "-";
+    private final static String COLON = " : ";
+    private final static int INIT_POSITION_NUMBER = 0;
+    private final static int STRAIGHT_STANDARD_NUMBER = 4;
+    private final String name;
+    private int position;
+
+    public Car(String name) {
+        this.name = name;
+        this.position = INIT_POSITION_NUMBER;
+    }
+
+    public void work(int number) {
+        if (verifyCarStraightPossible(number)) {
+            position++;
+        }
+    }
+
+    private boolean verifyCarStraightPossible(int number) {
+        if (number >= STRAIGHT_STANDARD_NUMBER) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getRoundResult() {
+        return name + COLON + POSITION_MARKER.repeat(position);
+    }
+
+    @Override
+    public int compareTo(Car otherCar) {
+        return Integer.compare(this.position, otherCar.position);
+    }
+}

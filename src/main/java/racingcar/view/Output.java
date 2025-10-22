@@ -1,6 +1,7 @@
 package racingcar.view;
 
 import java.util.List;
+import racingcar.model.Car;
 
 public class Output {
     private final static String WINNER_RESULT_MESSAGE = "최종 우승자 : ";
