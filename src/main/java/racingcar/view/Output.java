@@ -9,7 +9,7 @@ public class Output {
     private final static String PRINT_WINNERS_DELIMITER = ", ";
 
     public void printResult(List<String> winners) {
-        System.out.println(WINNER_RESULT_MESSAGE);
+        System.out.print(WINNER_RESULT_MESSAGE);
         printWinners(winners);
     }
 
