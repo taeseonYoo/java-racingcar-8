@@ -6,6 +6,7 @@ public class Car implements Comparable<Car> {
     private final static int INIT_POSITION_NUMBER = 0;
     private final static int STRAIGHT_STANDARD_NUMBER = 4;
     private final static int LIMIT_NAME_LENGTH = 5;
+    private final static String NAME_RANGE_EXCEPTION = "자동차 이름은 1자리 이상 5자리 이하만 가능합니다. 현재 길이 : ";
     private final String name;
     private int position;
 
@@ -21,21 +22,18 @@ public class Car implements Comparable<Car> {
 
     private void verifyCarName(String name) {
         if (name.isEmpty() || name.length() > LIMIT_NAME_LENGTH) {
-            throw new IllegalArgumentException("자동차 이름은 1자리 이상 5자리 이하만 가능합니다. 현재 길이 : " + name.length());
+            throw new IllegalArgumentException(NAME_RANGE_EXCEPTION + name.length());
         }
     }
 
     public void work(int number) {
-        if (verifyCarStraightPossible(number)) {
+        if (verifyStraightPossible(number)) {
             position++;
         }
     }
 
-    private boolean verifyCarStraightPossible(int number) {
-        if (number >= STRAIGHT_STANDARD_NUMBER) {
-            return true;
-        }
-        return false;
+    private boolean verifyStraightPossible(int number) {
+        return number >= STRAIGHT_STANDARD_NUMBER;
     }
 
     public String getRoundResult() {
