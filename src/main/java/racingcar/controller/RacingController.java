@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import racingcar.model.Car;
 import racingcar.model.Separator;
+import racingcar.validator.InputValidator;
 import racingcar.view.Input;
 import racingcar.view.Output;
 
@@ -14,6 +15,8 @@ public class RacingController {
         Output output = new Output();
 
         String inputCarNames = input.inputCarNames();
+        InputValidator.validateCarNames(inputCarNames);
+
         String[] carNames = Separator.splitCarNames(inputCarNames);
         List<Car> cars = Arrays.stream(carNames)
                 .map(Car::new).toList();
@@ -26,4 +29,5 @@ public class RacingController {
         output.printRoundResult(cars);
 //        output.printResult();
     }
+
 }
