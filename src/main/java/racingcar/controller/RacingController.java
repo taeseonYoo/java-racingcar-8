@@ -2,7 +2,7 @@ package racingcar.controller;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import racingcar.model.Car;
 import racingcar.model.Separator;
@@ -26,17 +26,20 @@ public class RacingController {
             }
             output.printRoundResult(cars);
         }
-        //게임 끝 승자를 집계한다.
-        List<Car> winners = new ArrayList<>();
-        cars.sort(Car::compareTo);
-//        output.printResult();
+        //게임 끝 승자를 집계한
+        List<String> winnerNames = aggregateWinners(cars);
+
+        output.printResult(winnerNames);
     }
 
     private static List<Car> settingCars(String inputCarNames) {
         InputValidator.validateCarNames(inputCarNames);
         String[] carNames = Separator.splitCarNames(inputCarNames);
-        return Arrays.stream(carNames)
-                .map(Car::new).toList();
+        List<Car> cars = new ArrayList<>();
+        for (String carName : carNames) {
+            cars.add(new Car(carName));
+        }
+        return cars;
     }
 
     private static int settingAttempts(String inputAttempts) {
@@ -47,6 +50,21 @@ public class RacingController {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("시도 횟수는 int 범위 안의 양의 정수를 입력해야 합니다.");
         }
+    }
+
+    private static List<String> aggregateWinners(List<Car> cars) {
+        List<String> winners = new ArrayList<>();
+        Collections.sort(cars);
+        Car maxResultCar = cars.getFirst();
+        winners.add(maxResultCar.getName());
+        for (int i = 1; i < cars.size(); i++) {
+            if (maxResultCar.compareTo(cars.get(i)) == 0) {
+                winners.add(cars.get(i).getName());
+            } else if (maxResultCar.compareTo(cars.get(i)) != 0) {
+                break;
+            }
+        }
+        return winners;
     }
 
 }

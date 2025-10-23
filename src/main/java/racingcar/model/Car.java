@@ -15,6 +15,10 @@ public class Car implements Comparable<Car> {
         this.position = INIT_POSITION_NUMBER;
     }
 
+    public String getName() {
+        return name;
+    }
+
     private void verifyCarName(String name) {
         if (name.isEmpty() || name.length() > LIMIT_NAME_LENGTH) {
             throw new IllegalArgumentException("자동차 이름은 1자리 이상 5자리 이하만 가능합니다. 현재 길이 : " + name.length());
@@ -40,6 +44,6 @@ public class Car implements Comparable<Car> {
 
     @Override
     public int compareTo(Car otherCar) {
-        return Integer.compare(this.position, otherCar.position);
+        return Integer.compare(otherCar.position, this.position);
     }
 }
