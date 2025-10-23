@@ -33,7 +33,6 @@ public class RacingController {
     }
 
     private static List<Car> settingCars(String inputCarNames) {
-        InputValidator.validateCarNames(inputCarNames);
         String[] carNames = Separator.splitCarNames(inputCarNames);
         List<Car> cars = new ArrayList<>();
         for (String carName : carNames) {
@@ -44,11 +43,9 @@ public class RacingController {
 
     private static int settingAttempts(String inputAttempts) {
         try {
-            int attempts = Integer.parseInt(inputAttempts);
-            InputValidator.validateAttempts(attempts);
-            return attempts;
+            return Integer.parseInt(inputAttempts);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("시도 횟수는 int 범위 안의 양의 정수를 입력해야 합니다.");
+            throw new IllegalArgumentException("시도 횟수는 int 범위 내의 양의 정수를 입력해야 합니다.");
         }
     }
 
