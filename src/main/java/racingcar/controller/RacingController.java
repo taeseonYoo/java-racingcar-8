@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import racingcar.model.Car;
 import racingcar.model.Separator;
-import racingcar.validator.InputValidator;
 import racingcar.view.Input;
 import racingcar.view.Output;
 
 public class RacingController {
+    private final static String ATTEMPTS_RANGE_EXCEPTION = "시도 횟수는 int 범위 내의 양의 정수를 입력해야 합니다.";
     public static void run() {
         Input input = new Input();
         Output output = new Output();
@@ -18,18 +18,21 @@ public class RacingController {
         List<Car> cars = settingCars(input.inputCarNames());
         int attempts = settingAttempts(input.inputAttempts());
 
+        List<Car> finishedCars = play(cars, attempts, output);
+        List<String> winnerNames = aggregateWinners(finishedCars);
+        output.printResult(winnerNames);
+    }
+
+    private static List<Car> play(List<Car> cars, int attempts, Output output) {
         output.printRaceResult();
         for (int i = 0; i < attempts; i++) {
-            for (int j = 0; j < cars.size(); j++) {
+            for (Car car : cars) {
                 int randomNum = Randoms.pickNumberInRange(0, 9);
-                cars.get(j).work(randomNum);
+                car.work(randomNum);
             }
             output.printRoundResult(cars);
         }
-        //게임 끝 승자를 집계한
-        List<String> winnerNames = aggregateWinners(cars);
-
-        output.printResult(winnerNames);
+        return cars;
     }
 
     private static List<Car> settingCars(String inputCarNames) {
@@ -45,7 +48,7 @@ public class RacingController {
         try {
             return Integer.parseInt(inputAttempts);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("시도 횟수는 int 범위 내의 양의 정수를 입력해야 합니다.");
+            throw new IllegalArgumentException(ATTEMPTS_RANGE_EXCEPTION);
         }
     }
 
