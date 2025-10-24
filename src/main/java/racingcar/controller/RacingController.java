@@ -12,25 +12,22 @@ import racingcar.view.Output;
 public class RacingController {
     private final static String ATTEMPTS_RANGE_EXCEPTION = "시도 횟수는 int 범위 내의 양의 정수를 입력해야 합니다.";
     public static void run() {
-        Input input = new Input();
-        Output output = new Output();
+        List<Car> cars = settingCars(Input.inputCarNames());
+        int attempts = settingAttempts(Input.inputAttempts());
 
-        List<Car> cars = settingCars(input.inputCarNames());
-        int attempts = settingAttempts(input.inputAttempts());
-
-        List<Car> finishedCars = play(cars, attempts, output);
+        List<Car> finishedCars = play(cars, attempts);
         List<String> winnerNames = aggregateWinners(finishedCars);
-        output.printResult(winnerNames);
+        Output.printResult(winnerNames);
     }
 
-    private static List<Car> play(List<Car> cars, int attempts, Output output) {
-        output.printRaceResult();
+    private static List<Car> play(List<Car> cars, int attempts) {
+        Output.printRaceResult();
         for (int i = 0; i < attempts; i++) {
             for (Car car : cars) {
                 int randomNum = Randoms.pickNumberInRange(0, 9);
                 car.work(randomNum);
             }
-            output.printRoundResult(cars);
+            Output.printRoundResult(cars);
         }
         return cars;
     }
