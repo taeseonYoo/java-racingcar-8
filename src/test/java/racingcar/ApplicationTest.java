@@ -164,6 +164,27 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    @DisplayName("실행 결과 예시와 출력이 일치하는 지 확인한다.")
+    void 출력_형식_테스트() {
+        assertRandomNumberInRangeTest(
+                () -> {
+                    run("pobi,woni,jun", "1");
+                    assertThat(output()).contains(
+                            "경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)\n"
+                            + "시도할 횟수는 몇 회인가요?\n"
+                            + "\n"
+                            + "실행 결과\n"
+                            + "pobi : -\n"
+                            + "woni : \n"
+                            + "jun : -\n"
+                            + "\n"
+                            + "최종 우승자 : pobi, jun");
+                },
+                MOVING_FORWARD, STOP,MOVING_FORWARD
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
