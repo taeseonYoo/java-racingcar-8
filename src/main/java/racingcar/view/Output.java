@@ -1,7 +1,6 @@
 package racingcar.view;
 
 import java.util.List;
-import racingcar.model.Car;
 
 public class Output {
     private final static String WINNER_RESULT_MESSAGE = "최종 우승자 : ";
@@ -18,7 +17,7 @@ public class Output {
 
     private static void printWinners(List<String> winners) {
         String result = String.join(PRINT_WINNERS_DELIMITER, winners);
-        System.out.println(result);
+        System.out.print(result);
     }
 
     public static void printRaceResult() {
@@ -26,11 +25,7 @@ public class Output {
         System.out.println(RACE_RESULT_MESSAGE);
     }
 
-    public static void printRoundResult(List<Car> cars) {
-        for (Car car : cars) {
-            String roundResult = car.getRoundResult();
-            System.out.println(roundResult);
-        }
-        System.out.println();
+    public static void printRoundResult(String roundResult) {
+        System.out.println(roundResult);
     }
 }
